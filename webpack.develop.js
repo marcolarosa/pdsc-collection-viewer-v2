@@ -41,7 +41,7 @@ module.exports = {
         watchContentBase: true
     },
     plugins: [
-        new CleanWebpackPlugin(["dist/"], {
+        new CleanWebpackPlugin(["dist/*.js", "dist/*.css"], {
             watch: true,
             root: __dirname
         }),
@@ -49,13 +49,10 @@ module.exports = {
             filename: "[name].[contenthash].css"
         }),
         new HtmlWebpackPlugin({
-            title: "Inteja",
+            title: "PARADISEC Collection Viewer",
             template: "./src/index.html"
         }),
-        new VueLoaderPlugin(),
-        new webpack.ProvidePlugin({
-            introJs: ["intro.js", "introJs"]
-        })
+        new VueLoaderPlugin()
     ],
     module: {
         rules: [
