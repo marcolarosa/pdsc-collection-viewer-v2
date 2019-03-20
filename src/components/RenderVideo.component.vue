@@ -1,13 +1,16 @@
 <template>
-    <div>
+    <div class="my-2">
         <div class="row">
-            <div class="col text-center">{{image.name}}</div>
+            <div class="col text-center">{{video.name}}</div>
         </div>
         <div class="row mx-2">
             <div class="col text-center">
-                <router-link :to="{ name: 'viewImage', params: { image: image.item }}">
-                    <img :src="image.item" class="style-image">
-                </router-link>
+                <!-- <router-link :to="{ name: 'viewVideo', params: { video: video }}"> -->
+                <video controls class="style-video">
+                    <source :src="item" v-for="(item, idx) of video.item" :key="idx">Your browser does not support the
+                    <code>video</code> element.
+                </video>
+                <!-- </router-link> -->
             </div>
         </div>
     </div>
@@ -16,7 +19,7 @@
 <script>
 export default {
     props: {
-        image: Object
+        video: Object
     },
     data() {
         return {};
@@ -25,26 +28,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.style-image {
+.style-video {
     max-width: 80vw;
 }
 @media only screen and (min-width: 600px) {
-    .style-image {
+    .style-video {
         max-width: 300px;
     }
 }
 @media only screen and (min-width: 1200px) {
-    .style-image {
+    .style-video {
         max-width: 350px;
     }
 }
 @media only screen and (min-width: 1500px) {
-    .style-image {
+    .style-video {
         max-width: 400px;
     }
 }
 @media only screen and (min-width: 1500px) {
-    .style-image {
+    .style-video {
         max-width: 500px;
     }
 }

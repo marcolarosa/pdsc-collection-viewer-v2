@@ -15,7 +15,6 @@ export const router = new VueRouter({
         { path: "*", name: "404", component: BadRequestComponent },
         {
             path: "/",
-            name: "shell",
             component: ShellComponent,
             children: [
                 {

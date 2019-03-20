@@ -8,18 +8,25 @@
             {{itemData.data.title}}
         </div>
         <render-image :image="item" v-if="item.type === 'image'"/>
+        <render-audio :audio="item" v-if="item.type === 'audio'"/>
+        <render-video :video="item" v-if="item.type === 'video'"/>
     </div>
 </template>
 
 <script>
 import RenderImage from "./RenderImage.component.vue";
+import RenderAudio from "./RenderAudio.component.vue";
+import RenderVideo from "./RenderVideo.component.vue";
+
 export default {
     props: {
         item: Object,
         data: Array
     },
     components: {
-        RenderImage
+        RenderImage,
+        RenderAudio,
+        RenderVideo
     },
     data() {
         return {
