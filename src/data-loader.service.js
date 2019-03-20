@@ -10,7 +10,8 @@ export async function loadData() {
         }
         let data = await response.json();
         let asList = flatten([...data]);
-        return { data, asList };
+        let filters = extractFilters(data);
+        return { data, asList, filters };
     } catch (error) {
         console.log(error);
     }
@@ -53,4 +54,71 @@ function flatten(data) {
         return [...images, ...audio, ...video];
     });
     return flattenDeep(data);
+}
+
+function extractFilters(data) {
+    let filters = {
+        speakers: {},
+        classifications: {},
+        collectionId: {},
+        itemId: {},
+        title: {}
+    };
+    data.forEach(d => {
+        if (d.data.speakers) {
+            d.data.speakers.forEach(s => {
+                filters.speakers[s.name] = 1;
+            });
+        }
+        if (d.data.classifications) {
+            d.data.classifications.forEach(c => {
+                filters.classifications.genre = c.genre;
+            });
+        }
+        filters.collectionId[d.collectionId] = 1;
+        filters.itemId[d.itemId] = 1;
+        filters.title[d.data.title] = 1;
+    });
+    return [
+        {
+            label: "Speakers",
+            options: Object.keys(filters.speakers)
+                .sort()
+                .map(k => {
+                    return { label: k, value: `Speaker: ${k}` };
+                })
+        },
+        {
+            label: "Classifications",
+            options: Object.keys(filters.classifications)
+                .sort()
+                .map(k => {
+                    return { label: k, value: `Classification: ${k}` };
+                })
+        },
+        {
+            label: "Titles",
+            options: Object.keys(filters.title)
+                .sort()
+                .map(k => {
+                    return { label: k, value: `Title: ${k}` };
+                })
+        },
+        {
+            label: "collections",
+            options: Object.keys(filters.collectionId)
+                .sort()
+                .map(k => {
+                    return { label: k, value: `Collection: ${k}` };
+                })
+        },
+        {
+            label: "Items",
+            options: Object.keys(filters.itemId)
+                .sort()
+                .map(k => {
+                    return { label: k, value: `Item: ${k}` };
+                })
+        }
+    ];
 }
