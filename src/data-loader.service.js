@@ -24,7 +24,8 @@ function flatten(data) {
                 collectionId: d.collectionId,
                 title: d.data.title,
                 type: "image",
-                item: image
+                item: image,
+                name: image.split("/")[4]
             };
         });
         let audio = d.data.media.filter(a => a.type === "audio");
@@ -34,7 +35,8 @@ function flatten(data) {
                 collectionId: d.collectionId,
                 title: d.data.title,
                 type: "audio",
-                item: a.files
+                item: a.files,
+                name: a.name
             };
         });
         let video = d.data.media.filter(v => v.type === "video");
@@ -44,7 +46,8 @@ function flatten(data) {
                 collectionId: d.collectionId,
                 title: d.data.title,
                 type: "video",
-                item: v.files
+                item: v.files,
+                name: v.name
             };
         });
         return [...images, ...audio, ...video];
