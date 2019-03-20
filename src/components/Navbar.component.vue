@@ -8,7 +8,8 @@
                             <i class="fas fa-bars style-hamburger"></i>
                         </span>
                     </span>
-                    <span class="float-right d-none d-sm-block">
+                    <span class="d-none d-sm-block">
+                        <content-filter/>
                         <!-- <span class="style-link">
                             <router-link to="/features">features</router-link>
                         </span>
@@ -21,35 +22,24 @@
                     </span>
                 </div>
             </div>
-            <span v-if="showLinks" class="style-dropdown">
-                <!-- <div class="row">
-                    <div class="col">
-                        <span class="style-link">
-                            <router-link to="/features">features</router-link>
-                        </span>
-                    </div>
-                </div>
+            <span v-if="showLinks">
                 <div class="row">
                     <div class="col">
-                        <span class="style-link">
-                            <router-link to="/pricing">pricing</router-link>
-                        </span>
+                        <content-filter/>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <span class="style-link">
-                            <router-link to="/login">login</router-link>
-                        </span>
-                    </div>
-                </div>-->
             </span>
         </div>
     </div>
 </template>
 
 <script>
+import ContentFilter from "./ContentFilter.component.vue";
+
 export default {
+    components: {
+        ContentFilter
+    },
     data() {
         return {
             showLinks: false
@@ -65,7 +55,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: 80px;
     z-index: 2;
     background-color: red;
 }
@@ -80,8 +70,11 @@ export default {
     top: 0px;
     left: 0px;
     width: 100vw;
+    height: 100vh;
+    z-index: 2;
     overflow: hidden;
     background-color: red;
+    overflow: hidden;
 }
 
 .style-dropdown a:hover {
