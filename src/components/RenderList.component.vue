@@ -40,9 +40,12 @@ export default {
     },
     mounted() {
         (async () => {
-            let { data, asList } = await loadData();
+            let { data, asList, filters } = await loadData();
             this.data = data;
             this.list = asList;
+            this.$store.commit("setData", data);
+            this.$store.commit("setFilters", filters);
+            this.$store.commit("setList", asList);
             this.loadMore();
         })();
     },
@@ -83,7 +86,7 @@ export default {
 
 .style-content {
     position: relative;
-    top: 60px;
+    top: 80px;
 }
 </style>
 

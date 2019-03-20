@@ -8,18 +8,23 @@ const configuration = {
     strict: process.env.NODE_ENV !== "production",
     state: {
         data: [],
-        filters: []
+        filters: [],
+        list: []
     },
     mutations: {
         reset(state) {
             state.data = [];
             state.filters = [];
+            state.list = [];
         },
         setData(state, data) {
             state.data = [...data];
         },
         setFilters(state, filters) {
             state.filters = [...filters];
+        },
+        setList(state, list) {
+            state.list = [...list];
         }
     }
 };
