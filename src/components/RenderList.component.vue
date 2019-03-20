@@ -1,6 +1,8 @@
 <template>
     <div class="remove-padding">
+        <navbar/>
         <div
+            class="style-content"
             v-infinite-scroll="loadMore"
             infinite-scroll-disabled="busy"
             infinite-scroll-distance="10"
@@ -20,10 +22,12 @@
 import { flattenDeep } from "lodash";
 import { loadData } from "../data-loader.service";
 import RenderItem from "./RenderItem.component.vue";
+import Navbar from "./Navbar.component.vue";
 
 export default {
     components: {
-        RenderItem
+        RenderItem,
+        Navbar
     },
     data() {
         return {
@@ -75,6 +79,11 @@ export default {
 <style lang="scss" scoped>
 .remove-padding {
     padding: 0;
+}
+
+.style-content {
+    position: relative;
+    top: 60px;
 }
 </style>
 
