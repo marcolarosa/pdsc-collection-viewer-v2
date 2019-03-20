@@ -25,7 +25,8 @@
         "vue-infinite-scroll": "^2.0.2",
         "vue-masonry": "^0.11.7",
         "vue-router": "^3.0.2",
-        "vue-scrollto": "^2.13.0"
+        "vue-scrollto": "^2.13.0",
+        "vuex": "^3.1.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.2.3",
