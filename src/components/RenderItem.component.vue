@@ -1,13 +1,13 @@
 <template>
     <div class="my-4">
         <div class="style-headline text-center my-2" v-if="itemData.data">
-            {{item.collectionId}}
+            <!-- {{item.collectionId}}
             /
             {{item.itemId}}
-            :
+            :-->
             {{itemData.data.title}}
         </div>
-        <render-image :image="item.item" v-if="item.type === 'image'"/>
+        <render-image :image="item" v-if="item.type === 'image'"/>
     </div>
 </template>
 
