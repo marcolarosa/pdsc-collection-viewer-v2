@@ -5,9 +5,9 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const ShellComponent = () =>
-    import(/* webpackChunkName: "group-shell" */ "components/ShellComponent.vue");
+    import(/* webpackChunkName: "group-shell" */ "components/Shell.component.vue");
 
-import BadRequestComponent from "components/BadRequestComponent.vue";
+import BadRequestComponent from "components/BadRequest.component.vue";
 
 export const router = new VueRouter({
     mode: "history",
