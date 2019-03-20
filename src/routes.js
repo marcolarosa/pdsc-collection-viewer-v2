@@ -4,10 +4,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-const ShellComponent = () =>
-    import(/* webpackChunkName: "group-shell" */ "components/Shell.component.vue");
-
+import ShellComponent from "components/Shell.component.vue";
 import BadRequestComponent from "components/BadRequest.component.vue";
+import ViewImageComponent from "components/ViewImage.component.vue";
 
 export const router = new VueRouter({
     mode: "history",
@@ -16,8 +15,12 @@ export const router = new VueRouter({
         {
             path: "/",
             name: "shell",
-            component: ShellComponent,
-            children: []
+            component: ShellComponent
+        },
+        {
+            path: "/view-image",
+            name: "viewImage",
+            component: ViewImageComponent
         }
     ]
 });

@@ -5,7 +5,7 @@
             infinite-scroll-disabled="busy"
             infinite-scroll-distance="10"
         >
-            <render-item v-for="(item, idx) of renderList" :key="idx" :item="item"/>
+            <render-item v-for="(item, idx) of renderList" :key="idx" :item="item" :data="data"/>
         </div>
     </div>
 </template>
@@ -24,7 +24,7 @@ export default {
             data: [],
             list: [],
             renderList: [],
-            itemsToPush: 5
+            itemsToPush: 2
         };
     },
     mounted() {
