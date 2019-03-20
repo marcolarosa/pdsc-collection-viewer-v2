@@ -6,7 +6,7 @@
             infinite-scroll-distance="10"
         >
             <span v-if="showItems">
-                <div v-masonry transition-duration="1s" item-selector=".item">
+                <div v-masonry transition-duration="0s" item-selector=".item">
                     <div v-masonry-tile class="item" v-for="(item, idx) in renderList" :key="idx">
                         <render-item :item="item" :data="data" class=".item"/>
                     </div>
