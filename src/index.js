@@ -4,7 +4,9 @@ import "@babel/polyfill";
 
 import Vue from "vue";
 import VueScrollTo from "vue-scrollto";
+import infiniteScroll from "vue-infinite-scroll";
 Vue.use(VueScrollTo);
+Vue.use(infiniteScroll);
 
 import App from "components/app.vue";
 import { router } from "./routes";
