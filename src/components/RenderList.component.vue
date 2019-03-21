@@ -107,6 +107,15 @@ export default {
     position: relative;
     top: 80px;
 }
+
+.item {
+    margin: 15px 0;
+}
+@media only screen and (min-width: 600px) {
+    .item {
+        margin: 15px;
+    }
+}
 </style>
 
 

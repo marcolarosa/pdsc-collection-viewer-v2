@@ -29,7 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 .style-video {
-    max-width: 80vw;
+    max-width: 60vw;
 }
 @media only screen and (min-width: 600px) {
     .style-video {
@@ -38,17 +38,17 @@ export default {
 }
 @media only screen and (min-width: 1200px) {
     .style-video {
+        max-width: 300px;
+    }
+}
+@media only screen and (min-width: 1500px) {
+    .style-video {
         max-width: 350px;
     }
 }
 @media only screen and (min-width: 1500px) {
     .style-video {
-        max-width: 400px;
-    }
-}
-@media only screen and (min-width: 1500px) {
-    .style-video {
-        max-width: 500px;
+        max-width: 300px;
     }
 }
 </style>

@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .style-image {
-    max-width: 80vw;
+    max-width: 70vw;
 }
 @media only screen and (min-width: 600px) {
     .style-image {

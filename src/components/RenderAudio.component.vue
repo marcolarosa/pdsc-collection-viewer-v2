@@ -37,8 +37,8 @@ export default {
     font-size: 6em;
 }
 .style-audio {
-    min-width: 80vw;
-    max-width: 80vw;
+    min-width: 70vw;
+    max-width: 70vw;
 }
 @media only screen and (min-width: 600px) {
     .style-audio {

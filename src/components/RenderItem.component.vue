@@ -1,22 +1,24 @@
 <template>
-    <div class="my-4">
-        <div class="style-headline text-center my-2" v-if="itemData.data">
-            <!-- {{item.collectionId}}
+    <el-card class="box-card">
+        <div class>
+            <div class="style-headline text-center my-2" v-if="itemData.data">
+                <!-- {{item.collectionId}}
             /
             {{item.itemId}}
-            :-->
-            <a href v-on:click.prevent="filterByTitle">{{itemData.data.title}}</a>
-            <div class="row">
-                <div class="col style-item-id">
-                    <a href v-on:click.prevent="filterByCollection">{{item.collectionId}}</a> /
-                    <a href v-on:click.prevent="filterByItem">{{item.itemId}}</a>
+                :-->
+                <a href v-on:click.prevent="filterByTitle">{{itemData.data.title}}</a>
+                <div class="row">
+                    <div class="col style-item-id">
+                        <a href v-on:click.prevent="filterByCollection">{{item.collectionId}}</a> /
+                        <a href v-on:click.prevent="filterByItem">{{item.itemId}}</a>
+                    </div>
                 </div>
             </div>
+            <render-image :image="item" v-if="item.type === 'image'"/>
+            <render-audio :audio="item" v-if="item.type === 'audio'"/>
+            <render-video :video="item" v-if="item.type === 'video'"/>
         </div>
-        <render-image :image="item" v-if="item.type === 'image'"/>
-        <render-audio :audio="item" v-if="item.type === 'audio'"/>
-        <render-video :video="item" v-if="item.type === 'video'"/>
-    </div>
+    </el-card>
 </template>
 
 <script>
@@ -78,6 +80,12 @@ export default {
 
 .style-item-id {
     font-size: 12px;
+}
+
+.box-card {
+    border: 1px solid #22313f;
+    box-shadow: unset;
+    max-width: calc(100vw - 30px);
 }
 </style>
 
