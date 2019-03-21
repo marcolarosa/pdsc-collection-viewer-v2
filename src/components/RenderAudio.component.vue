@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.style-audio-icon {
+    font-size: 6em;
+}
 .style-audio {
     min-width: 80vw;
     max-width: 80vw;
