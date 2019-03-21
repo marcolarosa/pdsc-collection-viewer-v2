@@ -4,7 +4,7 @@ import { flattenDeep, reduce, uniq, capitalize } from "lodash";
 
 export async function loadData() {
     try {
-        let response = await fetch("/repository/index.json");
+        let response = await fetch("repository/index.json");
         if (response.status !== 200) {
             throw new Error(response);
         }
