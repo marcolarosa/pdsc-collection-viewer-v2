@@ -4,7 +4,6 @@
             v-model="selectedFilter"
             placeholder="Filter by..."
             class="style-select"
-            @change="setSelectedFilter"
             clearable
             filterable
         >
@@ -26,13 +25,19 @@
 <script>
 export default {
     data() {
-        return {
-            selectedFilter: undefined
-        };
+        return {};
     },
     computed: {
         filters: function() {
             return this.$store.state.filters;
+        },
+        selectedFilter: {
+            get: function() {
+                return this.$store.state.selectedFilter;
+            },
+            set: function(value) {
+                this.$store.commit("setSelectedFilter", value || undefined);
+            }
         }
     },
     methods: {
