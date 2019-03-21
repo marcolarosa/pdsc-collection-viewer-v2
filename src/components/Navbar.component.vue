@@ -49,7 +49,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
 .style-navbar {
     position: fixed;
     top: 0;

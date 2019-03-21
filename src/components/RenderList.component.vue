@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { flattenDeep } from "lodash";
+import { flattenDeep, includes } from "lodash";
 import { loadData } from "../data-loader.service";
 import RenderItem from "./RenderItem.component.vue";
 import Navbar from "./Navbar.component.vue";
@@ -37,6 +37,25 @@ export default {
             itemsToPush: 10,
             showItems: true
         };
+    },
+    computed: {
+        selectedFilter: function() {
+            return this.$store.state.selectedFilter;
+        }
+    },
+    watch: {
+        selectedFilter: function() {
+            this.list = this.$store.state.list;
+            if (this.selectedFilter) {
+                this.list = this.list.filter(item => {
+                    let type = this.selectedFilter.type;
+                    let value = this.selectedFilter.value;
+                    return item[type] === value || includes(item[type], value);
+                });
+            }
+            this.renderList = [];
+            setTimeout(this.loadMore, 200);
+        }
     },
     mounted() {
         (async () => {
