@@ -1,6 +1,6 @@
 "use strict";
 
-import { flattenDeep } from "lodash";
+import { flattenDeep, reduce, uniq, capitalize } from "lodash";
 
 export async function loadData() {
     try {
@@ -18,6 +18,7 @@ export async function loadData() {
 }
 
 function flatten(data) {
+    let classifications;
     data = data.map(d => {
         let images = d.data.images.map(image => {
             return {
@@ -26,7 +27,9 @@ function flatten(data) {
                 title: d.data.title,
                 type: "image",
                 item: image,
-                name: image.split("/")[4]
+                name: image.split("/")[4],
+                speakers: d.data.speakers.map(s => s.name),
+                ...extractClassifications(d.data.classifications)
             };
         });
         let audio = d.data.media.filter(a => a.type === "audio");
@@ -37,7 +40,9 @@ function flatten(data) {
                 title: d.data.title,
                 type: "audio",
                 item: a.files,
-                name: a.name
+                name: a.name,
+                speakers: d.data.speakers.map(s => s.name),
+                ...extractClassifications(d.data.classifications)
             };
         });
         let video = d.data.media.filter(v => v.type === "video");
@@ -48,7 +53,9 @@ function flatten(data) {
                 title: d.data.title,
                 type: "video",
                 item: v.files,
-                name: v.name
+                name: v.name,
+                speakers: d.data.speakers.map(s => s.name),
+                ...extractClassifications(d.data.classifications)
             };
         });
         return [...images, ...audio, ...video];
@@ -72,28 +79,32 @@ function extractFilters(data) {
         }
         if (d.data.classifications) {
             d.data.classifications.forEach(c => {
-                filters.classifications.genre = c.genre;
+                Object.keys(c).forEach(key => {
+                    if (!filters.classifications[key]) {
+                        filters.classifications[key] = [];
+                    }
+                    filters.classifications[key].push(c[key]);
+                });
             });
         }
         filters.collectionId[d.collectionId] = 1;
         filters.itemId[d.itemId] = 1;
         filters.title[d.data.title] = 1;
     });
-    return [
+    let f = [
         {
             label: "Speakers",
             options: Object.keys(filters.speakers)
                 .sort()
                 .map(k => {
-                    return { label: k, value: `Speaker: ${k}` };
-                })
-        },
-        {
-            label: "Classifications",
-            options: Object.keys(filters.classifications)
-                .sort()
-                .map(k => {
-                    return { label: k, value: `Classification: ${k}` };
+                    return {
+                        label: k,
+                        value: {
+                            type: "speakers",
+                            value: k,
+                            label: `Speaker: ${k}`
+                        }
+                    };
                 })
         },
         {
@@ -101,7 +112,10 @@ function extractFilters(data) {
             options: Object.keys(filters.title)
                 .sort()
                 .map(k => {
-                    return { label: k, value: `Title: ${k}` };
+                    return {
+                        label: k,
+                        value: { type: "title", value: k, label: `Title: ${k}` }
+                    };
                 })
         },
         {
@@ -109,7 +123,14 @@ function extractFilters(data) {
             options: Object.keys(filters.collectionId)
                 .sort()
                 .map(k => {
-                    return { label: k, value: `Collection: ${k}` };
+                    return {
+                        label: k,
+                        value: {
+                            type: "collectionId",
+                            value: k,
+                            label: `Collection: ${k}`
+                        }
+                    };
                 })
         },
         {
@@ -117,8 +138,40 @@ function extractFilters(data) {
             options: Object.keys(filters.itemId)
                 .sort()
                 .map(k => {
-                    return { label: k, value: `Item: ${k}` };
+                    return {
+                        label: k,
+                        value: {
+                            type: "itemId",
+                            value: k,
+                            label: `Item: ${k}`
+                        }
+                    };
                 })
         }
     ];
+
+    Object.keys(filters.classifications)
+        .sort()
+        .forEach(c => {
+            f.push({
+                label: capitalize(c),
+                options: uniq(filters.classifications[c]).map(
+                    classification => {
+                        return {
+                            label: classification,
+                            value: {
+                                type: c,
+                                value: classification,
+                                label: `${capitalize(c)}: ${classification}`
+                            }
+                        };
+                    }
+                )
+            });
+        });
+    return f;
+}
+
+function extractClassifications(classifications) {
+    return reduce(classifications);
 }
