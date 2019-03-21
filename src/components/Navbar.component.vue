@@ -1,9 +1,9 @@
 <template>
     <div class="style-navbar px-4">
-        <div class="style-header" :class="{ 'style-dropdown px-4': showLinks }">
-            <div class="row py-4">
+        <div :class="{ 'style-dropdown px-4': showLinks }">
+            <div class="row py-2">
                 <div class="col">
-                    <span class="float-right d-sm-none">
+                    <span class="float-right d-sm-none py-2">
                         <span @click="showLinks = !showLinks">
                             <i class="fas fa-bars style-hamburger"></i>
                         </span>
@@ -50,13 +50,14 @@ export default {
 
 <style lang="scss" scoped>
 .style-navbar {
+    color: #fff;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 80px;
+    height: 60px;
     z-index: 2;
-    background-color: red;
+    background-color: #013243;
 }
 
 .style-hamburger {
@@ -69,10 +70,10 @@ export default {
     top: 0px;
     left: 0px;
     width: 100vw;
-    height: 100vh;
+    height: 120px;
     z-index: 2;
     overflow: hidden;
-    background-color: red;
+    background-color: #013243;
     overflow: hidden;
 }
 
