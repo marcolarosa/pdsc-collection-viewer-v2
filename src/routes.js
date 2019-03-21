@@ -11,6 +11,7 @@ import RenderListComponent from "components/RenderList.component.vue";
 
 export const router = new VueRouter({
     mode: "history",
+    base: process.env.NODE_ENV === "development" ? "/" : "/mobile-viewer",
     routes: [
         { path: "*", name: "404", component: BadRequestComponent },
         {
