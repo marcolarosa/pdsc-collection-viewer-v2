@@ -34,7 +34,7 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[id].css"
         }),
-        new CleanWebpackPlugin(["dist/"], {
+        new CleanWebpackPlugin(["dist/*.js", "dist/*.css"], {
             watch: true,
             root: __dirname
         }),
