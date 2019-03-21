@@ -9,13 +9,17 @@ const configuration = {
     state: {
         data: [],
         filters: [],
-        list: []
+        list: [],
+        selectedFilter: undefined
     },
     mutations: {
         reset(state) {
-            state.data = [];
-            state.filters = [];
-            state.list = [];
+            state = {
+                data: [],
+                filters: [],
+                list: [],
+                selectedFilter: []
+            };
         },
         setData(state, data) {
             state.data = [...data];
@@ -25,6 +29,9 @@ const configuration = {
         },
         setList(state, list) {
             state.list = [...list];
+        },
+        setSelectedFilter(state, selectedFilter) {
+            state.selectedFilter = selectedFilter;
         }
     }
 };
