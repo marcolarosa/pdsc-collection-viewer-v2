@@ -1,6 +1,6 @@
 <template>
     <div class="style-image-container">
-        <img :src="image" class="style-image">
+        <img :src="image.item.path" class="style-image" v-if="image.item">
     </div>
 </template>
 
@@ -8,11 +8,23 @@
 export default {
     data() {
         return {
-            image: undefined
+            image: {}
         };
     },
     mounted() {
-        this.image = this.$route.params.image;
+        let { collectionId, itemId, image } = this.$route.params;
+        if (!this.$store.state.list.length) {
+            this.$router.push({ name: "viewList" });
+            return;
+        }
+        let images = this.$store.state.list.filter(item => {
+            return item.collectionId === collectionId && item.itemId === itemId;
+        })[0].images;
+        if (!images.length) {
+            this.$router.push({ name: "viewList" });
+            return;
+        }
+        this.image = images.filter(i => i.name.match(image))[0];
     }
 };
 </script>

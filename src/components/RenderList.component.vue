@@ -10,7 +10,7 @@
             <span v-if="showItems">
                 <div v-masonry transition-duration="0s" item-selector=".item">
                     <div v-masonry-tile class="item" v-for="(item, idx) in renderList" :key="idx">
-                        <render-item :item="item" :data="data" class=".item"/>
+                        <render-item :item="item" class=".item"/>
                     </div>
                 </div>
             </span>
@@ -31,7 +31,6 @@ export default {
     },
     data() {
         return {
-            data: [],
             list: [],
             renderList: [],
             itemsToPush: 10,
@@ -59,12 +58,20 @@ export default {
     },
     mounted() {
         (async () => {
-            let { data, asList, filters } = await loadData();
-            this.data = data;
-            this.list = asList;
-            this.$store.commit("setData", data);
+            let { rawData, renderList, filters } = await loadData();
+            this.list = renderList.map(d => {
+                return [
+                    {
+                        ...d.images[0],
+                        images: d.images
+                    },
+                    ...d.audio,
+                    ...d.video
+                ];
+            });
+            this.$store.commit("setData", rawData);
             this.$store.commit("setFilters", filters);
-            this.$store.commit("setList", asList);
+            this.$store.commit("setList", renderList);
             this.loadMore();
         })();
     },

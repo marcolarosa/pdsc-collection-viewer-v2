@@ -8,6 +8,7 @@ import ShellComponent from "components/Shell.component.vue";
 import BadRequestComponent from "components/BadRequest.component.vue";
 import ViewImageComponent from "components/ViewImage.component.vue";
 import RenderListComponent from "components/RenderList.component.vue";
+import RenderImageSetComponent from "components/RenderImageSet.component.vue";
 
 export const router = new VueRouter({
     mode: "history",
@@ -24,8 +25,13 @@ export const router = new VueRouter({
                     component: RenderListComponent
                 },
                 {
-                    path: "view-image",
-                    name: "viewImage",
+                    path: "images/:collectionId/:itemId",
+                    name: "images",
+                    component: RenderImageSetComponent
+                },
+                {
+                    path: "image/:collectionId/:itemId/:image",
+                    name: "image",
                     component: ViewImageComponent
                 }
             ]

@@ -1,6 +1,6 @@
 "use strict";
 
-import { flattenDeep, reduce, uniq, capitalize } from "lodash";
+import { flattenDeep, reduce, uniq, capitalize, orderBy } from "lodash";
 
 export async function loadData() {
     try {
@@ -8,10 +8,10 @@ export async function loadData() {
         if (response.status !== 200) {
             throw new Error(response);
         }
-        let data = await response.json();
-        let asList = flatten([...data]);
-        let filters = extractFilters(data);
-        return { data, asList, filters };
+        let rawData = await response.json();
+        let renderList = flatten([...rawData]);
+        let filters = extractFilters(rawData);
+        return { rawData, renderList, filters };
     } catch (error) {
         console.log(error);
     }
@@ -27,11 +27,12 @@ function flatten(data) {
                 title: d.data.title,
                 type: "image",
                 item: image,
-                name: image.split("/")[4],
+                name: image.name,
                 speakers: d.data.speakers.map(s => s.name),
                 ...extractClassifications(d.data.classifications)
             };
         });
+        images = orderBy(images, "name");
         let audio = d.data.media.filter(a => a.type === "audio");
         audio = audio.map(a => {
             return {
@@ -58,7 +59,13 @@ function flatten(data) {
                 ...extractClassifications(d.data.classifications)
             };
         });
-        return [...images, ...audio, ...video];
+        return {
+            collectionId: d.collectionId,
+            itemId: d.itemId,
+            images,
+            audio,
+            video
+        };
     });
     return flattenDeep(data);
 }

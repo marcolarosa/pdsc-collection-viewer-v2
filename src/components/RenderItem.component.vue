@@ -1,12 +1,8 @@
 <template>
     <el-card class="box-card">
         <div class>
-            <div class="style-headline text-center my-2" v-if="itemData.data">
-                <!-- {{item.collectionId}}
-            /
-            {{item.itemId}}
-                :-->
-                <a href v-on:click.prevent="filterByTitle">{{itemData.data.title}}</a>
+            <div class="style-headline text-center my-2" v-if="item.title">
+                <a href v-on:click.prevent="filterByTitle">{{item.title}}</a>
                 <div class="row">
                     <div class="col style-item-id">
                         <a href v-on:click.prevent="filterByCollection">{{item.collectionId}}</a> /
@@ -28,8 +24,7 @@ import RenderVideo from "./RenderVideo.component.vue";
 
 export default {
     props: {
-        item: Object,
-        data: Array
+        item: Object
     },
     components: {
         RenderImage,
@@ -41,31 +36,24 @@ export default {
             itemData: {}
         };
     },
-    mounted() {
-        let collectionItems = this.data.filter(
-            d => d.collectionId === this.item.collectionId
-        );
-        this.itemData = collectionItems.filter(
-            i => i.itemId === this.item.itemId
-        )[0];
-    },
+    mounted() {},
     methods: {
         filterByTitle() {
             this.$store.commit("setSelectedFilter", {
                 type: "title",
-                value: this.itemData.data.title
+                value: this.item.title
             });
         },
         filterByCollection() {
             this.$store.commit("setSelectedFilter", {
                 type: "collectionId",
-                value: this.itemData.collectionId
+                value: this.item.collectionId
             });
         },
         filterByItem() {
             this.$store.commit("setSelectedFilter", {
                 type: "itemId",
-                value: this.itemData.itemId
+                value: this.item.itemId
             });
         }
     }
