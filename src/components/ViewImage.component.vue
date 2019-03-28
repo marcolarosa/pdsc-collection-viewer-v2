@@ -11,6 +11,7 @@
             v-on:previous-image="goToPreviousImage"
             v-on:image-list="goToImageList"
             v-on:next-image="goToNextImage"
+            v-on:enable-zoom="toggleZoom"
         />
     </div>
 </template>
@@ -58,6 +59,11 @@ export default {
         },
         toggleControls() {
             this.dialogVisible = !this.dialogVisible;
+        },
+        toggleZoom() {
+            this.toggleControls();
+            const viewer = ImageViewer();
+            viewer.show(this.image.item.path);
         },
         goToPreviousImage() {
             let itemIndex = findIndex(this.images, { name: this.image.name });

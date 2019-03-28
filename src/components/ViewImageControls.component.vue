@@ -4,7 +4,7 @@
         <div class="controls-overlay">
             <div class="row">
                 <div class="col">
-                    <span @click="toggleControls" class="px-5 float-right style-controls">
+                    <span @click="toggleControls" class="p-2 px-4 float-right style-close">
                         <i class="fal fa-times"></i>
                     </span>
                 </div>
@@ -17,19 +17,28 @@
             </div>
 
             <div class="row my-5 text-center style-controls">
-                <div class="col-4 my-5 py-5">
+                <div class="col-3 my-5 py-5">
                     <span @click="back">
                         <i class="fal fa-chevron-circle-left"></i>
+                        <span class="style-control-text">previous image</span>
                     </span>
                 </div>
-                <div class="col-4 my-5 py-5">
+                <div class="col-3 my-5 py-5">
                     <span @click="up">
                         <i class="fal fa-level-up"></i>
+                        <span class="style-control-text">up to image list</span>
                     </span>
                 </div>
-                <div class="col-4 my-5 py-5">
+                <div class="col-3 my-5 py-5">
+                    <span @click="zoom">
+                        <i class="fal fa-search"></i>
+                        <span class="style-control-text">enable zoom</span>
+                    </span>
+                </div>
+                <div class="col-3 my-5 py-5">
                     <span @click="forward">
                         <i class="fal fa-chevron-circle-right"></i>
+                        <span class="style-control-text">next image</span>
                     </span>
                 </div>
             </div>
@@ -57,6 +66,9 @@ export default {
         },
         forward() {
             this.$emit("next-image");
+        },
+        zoom() {
+            this.$emit("enable-zoom");
         }
     }
 };
@@ -95,5 +107,15 @@ export default {
 .style-controls {
     font-size: 4em;
 }
+
+.style-control-text {
+    display: block;
+    font-size: 20px;
+}
+
+.style-close {
+    font-size: 2.8em;
+}
 </style>
+
 
