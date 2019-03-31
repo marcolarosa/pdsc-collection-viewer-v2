@@ -1,17 +1,24 @@
 <template>
     <div>
-        <div class="row" v-if="images.length">
+        <div class="row mt-2 mb-4" v-if="images.length">
+            <div class="col-3">
+                <router-link :to="{ path: '/'}">
+                    <i class="fal fa-level-up"></i>
+                    <span class="style-control-text">back to index</span>
+                </router-link>
+            </div>
             <div class="col">
                 <div class="style-headline text-center my-2">
-                    <a href v-on:click.prevent>{{images[0].title}}</a>
+                    {{images[0].title}}
                     <div class="row">
                         <div class="col style-item-id">
-                            <a href v-on:click.prevent>{{images[0].collectionId}}</a> /
-                            <a href v-on:click.prevent>{{images[0].itemId}}</a>
+                            {{images[0].collectionId}} /
+                            {{images[0].itemId}}
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-3"></div>
         </div>
         <div v-masonry transition-duration="0s" item-selector=".item">
             <div v-masonry-tile class="item" v-for="(item, idx) in images" :key="idx">
@@ -79,6 +86,10 @@ export default {
 
 .style-image-placeholder {
     font-size: 10em;
+}
+
+.style-control {
+    cursor: pointer;
 }
 </style>
 
