@@ -18,25 +18,25 @@
 
             <div class="row my-5 text-center style-controls">
                 <div class="col-3 my-5 py-5">
-                    <span @click="back">
+                    <span @click="back" class="style-control">
                         <i class="fal fa-chevron-circle-left"></i>
                         <span class="style-control-text">previous image</span>
                     </span>
                 </div>
                 <div class="col-3 my-5 py-5">
-                    <span @click="up">
+                    <span @click="up" class="style-control">
                         <i class="fal fa-level-up"></i>
                         <span class="style-control-text">up to image list</span>
                     </span>
                 </div>
                 <div class="col-3 my-5 py-5">
-                    <span @click="zoom">
+                    <span @click="zoom" class="style-control">
                         <i class="fal fa-search"></i>
                         <span class="style-control-text">enable zoom</span>
                     </span>
                 </div>
                 <div class="col-3 my-5 py-5">
-                    <span @click="forward">
+                    <span @click="forward" class="style-control">
                         <i class="fal fa-chevron-circle-right"></i>
                         <span class="style-control-text">next image</span>
                     </span>
@@ -106,6 +106,10 @@ export default {
 
 .style-controls {
     font-size: 4em;
+}
+
+.style-control {
+    cursor: pointer;
 }
 
 .style-control-text {
