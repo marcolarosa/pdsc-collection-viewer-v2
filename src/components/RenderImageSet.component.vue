@@ -42,11 +42,11 @@ export default {
     },
     beforeMount() {
         let { collectionId, itemId } = this.$route.params;
-        if (!this.$store.state.list.length) {
+        if (!this.$store.state.items) {
             this.$router.push({ name: "viewList" });
             return;
         }
-        this.images = this.$store.state.list.filter(item => {
+        this.images = this.$store.state.items.filter(item => {
             return item.collectionId === collectionId && item.itemId === itemId;
         })[0].images;
         if (!this.images.length) this.$router.push({ name: "viewList" });
