@@ -42,7 +42,7 @@ export default {
     },
     beforeMount() {
         let { collectionId, itemId } = this.$route.params;
-        if (!this.$store.state.items) {
+        if (!this.$store.state.items.length) {
             this.$router.push({ name: "viewList" });
             return;
         }

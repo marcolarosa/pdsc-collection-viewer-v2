@@ -18,25 +18,19 @@
 
             <div class="center-controls">
                 <div class="row text-center style-controls mx-auto">
-                    <div class="col-3">
+                    <div class="col-4">
                         <span @click="back" class="style-control">
                             <i class="fal fa-chevron-circle-left"></i>
                             <span class="style-control-text">previous image</span>
                         </span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <span @click="up" class="style-control">
                             <i class="fal fa-level-up"></i>
                             <span class="style-control-text">up to image list</span>
                         </span>
                     </div>
-                    <div class="col-3">
-                        <span @click="zoom" class="style-control">
-                            <i class="fal fa-search"></i>
-                            <span class="style-control-text">enable zoom</span>
-                        </span>
-                    </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <span @click="forward" class="style-control">
                             <i class="fal fa-chevron-circle-right"></i>
                             <span class="style-control-text">next image</span>
@@ -68,9 +62,6 @@ export default {
         },
         forward() {
             this.$emit("next-image");
-        },
-        zoom() {
-            this.$emit("enable-zoom");
         }
     }
 };
@@ -130,6 +121,7 @@ export default {
 .style-close {
     font-size: 2.8em;
 }
+
 @media only screen and (min-width: 600px) and (min-height: 500px) {
     .style-title {
         display: block;

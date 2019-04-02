@@ -11,7 +11,6 @@
             v-on:previous-image="goToPreviousImage"
             v-on:image-list="goToImageList"
             v-on:next-image="goToNextImage"
-            v-on:enable-zoom="toggleZoom"
         />
     </div>
 </template>
@@ -33,6 +32,7 @@ export default {
     },
     mounted() {
         this.loadImage();
+        this.toggleZoom();
     },
     watch: {
         $route(to, from) {
@@ -56,9 +56,11 @@ export default {
                 return;
             }
             this.image = this.images.filter(i => i.name.match(image))[0];
+            if (!this.dialogVisible) this.toggleZoom();
         },
         toggleControls() {
             this.dialogVisible = !this.dialogVisible;
+            if (!this.dialogVisible) this.toggleZoom();
         },
         toggleZoom() {
             this.toggleControls();
