@@ -1,28 +1,24 @@
 <template>
     <div>
-        <div class="row mt-2 mb-4" v-if="images.length">
-            <div class="col-3">
-                <router-link :to="{ path: '/'}">
-                    <i class="fal fa-level-up"></i>
-                    <span class="style-control-text">back to index</span>
-                </router-link>
-            </div>
-            <div class="col">
-                <div class="style-headline text-center my-2">
-                    {{images[0].title}}
-                    <div class="row">
-                        <div class="col style-item-id">
-                            {{images[0].collectionId}} /
-                            {{images[0].itemId}}
+        <navbar/>
+        <div class="style-content">
+            <div class="row mt-2 mb-4" v-if="images.length">
+                <div class="col">
+                    <div class="style-headline text-center my-2">
+                        {{images[0].title}}
+                        <div class="row">
+                            <div class="col style-item-id">
+                                {{images[0].collectionId}} /
+                                {{images[0].itemId}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-3"></div>
-        </div>
-        <div v-masonry transition-duration="0s" item-selector=".item">
-            <div v-masonry-tile class="item" v-for="(item, idx) in images" :key="idx">
-                <render-image :image="item" v-if="item.type === 'image'"/>
+            <div v-masonry transition-duration="0s" item-selector=".item">
+                <div v-masonry-tile class="item" v-for="(item, idx) in images" :key="idx">
+                    <render-image :image="item" v-if="item.type === 'image'"/>
+                </div>
             </div>
         </div>
     </div>
@@ -30,9 +26,12 @@
 
 <script>
 import RenderImage from "./RenderImage.component.vue";
+import Navbar from "./Navbar.component.vue";
+
 export default {
     components: {
-        RenderImage
+        RenderImage,
+        Navbar
     },
     props: {},
     data() {
@@ -55,6 +54,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.style-content {
+    position: relative;
+    top: 80px;
+}
+
 .style-image {
     max-width: 70vw;
     min-width: 70vw;

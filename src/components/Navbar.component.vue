@@ -3,29 +3,25 @@
         <div :class="{ 'style-dropdown px-4': showLinks }">
             <div class="row py-2">
                 <div class="col">
-                    <span class="float-right d-sm-none py-2">
+                    <span class="float-right d-sm-none py-2" v-if="menuItems.contentFilter">
                         <span @click="showLinks = !showLinks">
                             <i class="fas fa-bars style-hamburger"></i>
                         </span>
                     </span>
                     <span class="d-none d-sm-block">
-                        <content-filter/>
-                        <!-- <span class="style-link">
-                            <router-link to="/features">features</router-link>
-                        </span>
-                        <span class="style-link">
-                            <router-link to="/pricing">pricing</router-link>
-                        </span>
-                        <span class="style-link">
-                            <router-link to="/login">login</router-link>
-                        </span>-->
+                        <content-filter v-if="menuItems.contentFilter"/>
                     </span>
+                    <router-link :to="{ path: '/'}">
+                        <el-button type v-if="menuItems.home">
+                            <i class="fas fa-home"></i>
+                        </el-button>
+                    </router-link>
                 </div>
             </div>
             <span v-if="showLinks">
                 <div class="row">
                     <div class="col">
-                        <content-filter/>
+                        <content-filter v-if="menuItems.contentFilter"/>
                     </div>
                 </div>
             </span>
@@ -42,8 +38,29 @@ export default {
     },
     data() {
         return {
+            menuItems: {
+                contentFilter: true,
+                home: false
+            },
             showLinks: false
         };
+    },
+    mounted() {
+        switch (this.$route.name) {
+            case "images":
+                this.menuItems = {
+                    contentFilter: false,
+                    home: true
+                };
+                break;
+
+            case "viewList":
+                this.menuItems = {
+                    contentFilter: true,
+                    home: false
+                };
+                break;
+        }
     }
 };
 </script>
