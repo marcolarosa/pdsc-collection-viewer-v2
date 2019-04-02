@@ -25,6 +25,7 @@ export default {
     },
     data() {
         return {
+            viewer: undefined,
             image: {},
             images: [],
             dialogVisible: false
@@ -33,6 +34,13 @@ export default {
     mounted() {
         this.loadImage();
         this.toggleZoom();
+    },
+    beforeDestroy() {
+        // this is required for the browser back button to work.
+        //  For some reason the browser gets stuck and won't navigate back
+        //  if we don't do this.
+        const container = document.getElementById("iv-container");
+        container.style.display = "none";
     },
     watch: {
         $route(to, from) {
@@ -63,9 +71,9 @@ export default {
             if (!this.dialogVisible) this.toggleZoom();
         },
         toggleZoom() {
-            this.toggleControls();
-            const viewer = ImageViewer();
-            viewer.show(this.image.item.path);
+            this.viewer = ImageViewer();
+            this.viewer.show(this.image.item.path);
+            if (!this.dialogVisible) this.dialogVisible = !this.dialogVisible;
         },
         goToPreviousImage() {
             let itemIndex = findIndex(this.images, { name: this.image.name });
