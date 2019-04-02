@@ -7,28 +7,23 @@ Vue.use(Vuex);
 const configuration = {
     strict: process.env.NODE_ENV !== "production",
     state: {
-        data: [],
+        items: [],
         filters: [],
-        list: [],
         selectedFilter: undefined
     },
     mutations: {
         reset(state) {
             state = {
-                data: [],
+                items: [],
                 filters: [],
-                list: [],
                 selectedFilter: []
             };
         },
-        setData(state, data) {
-            state.data = [...data];
+        setItems(state, items) {
+            state.items = [...items];
         },
         setFilters(state, filters) {
             state.filters = [...filters];
-        },
-        setList(state, list) {
-            state.list = [...list];
         },
         setSelectedFilter(state, selectedFilter) {
             state.selectedFilter = selectedFilter;
