@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import { flattenDeep, includes } from "lodash";
-import { loadData } from "../data-loader.service";
+import { flattenDeep, includes, orderBy } from "lodash";
+import { loadData, flattenItemList } from "../data-loader.service";
 import RenderItem from "./RenderItem.component.vue";
 import Navbar from "./Navbar.component.vue";
 
@@ -31,9 +31,8 @@ export default {
     },
     data() {
         return {
-            list: [],
             renderList: [],
-            itemsToPush: 10,
+            itemsToPush: 4,
             showItems: true
         };
     },
@@ -44,34 +43,18 @@ export default {
     },
     watch: {
         selectedFilter: function() {
-            this.list = this.$store.state.list;
-            if (this.selectedFilter) {
-                this.list = this.list.filter(item => {
-                    let type = this.selectedFilter.type;
-                    let value = this.selectedFilter.value;
-                    return item[type] === value || includes(item[type], value);
-                });
-            }
             this.renderList = [];
             setTimeout(this.loadMore, 200);
         }
     },
     mounted() {
         (async () => {
-            let { rawData, renderList, filters } = await loadData();
-            this.list = renderList.map(d => {
-                return [
-                    {
-                        ...d.images[0],
-                        images: d.images
-                    },
-                    ...d.audio,
-                    ...d.video
-                ];
-            });
-            this.$store.commit("setData", rawData);
+            let { items, filters } = await loadData();
+            this.$store.commit(
+                "setItems",
+                orderBy(items, ["collectionId", "itemId"])
+            );
             this.$store.commit("setFilters", filters);
-            this.$store.commit("setList", renderList);
             this.loadMore();
         })();
     },
@@ -91,15 +74,24 @@ export default {
             }, 200);
         },
         loadMore() {
-            if (this.renderList.length === this.list.length) return;
+            let items = flattenItemList(this.$store.state.items);
+            if (this.selectedFilter) {
+                items = items.filter(item => {
+                    let type = this.selectedFilter.type;
+                    let value = this.selectedFilter.value;
+                    return item[type] === value || includes(item[type], value);
+                });
+            }
+            if (this.renderList.length === items.length) return;
+
             this.renderList = flattenDeep([
                 ...this.renderList,
-                this.list.slice(
+                items.slice(
                     this.renderList.length,
                     this.renderList.length + this.itemsToPush
                 )
             ]);
-            console.log(this.renderList.length, this.list.length);
+            console.log(this.renderList.length, items.length);
         }
     }
 };
