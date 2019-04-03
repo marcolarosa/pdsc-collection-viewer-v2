@@ -6,7 +6,8 @@
                 <div class="row">
                     <div class="col style-item-id">
                         <a href v-on:click.prevent="filterByCollection">{{item.collectionId}}</a> /
-                        <a href v-on:click.prevent="filterByItem">{{item.itemId}}</a>
+                        <a href v-on:click.prevent="filterByItem">{{item.itemId}}</a> /
+                        <item-information :item="item"/>
                     </div>
                 </div>
             </div>
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import ItemInformation from "./ItemInformation.component.vue";
 import RenderImage from "./RenderImage.component.vue";
 import RenderAudio from "./RenderAudio.component.vue";
 import RenderVideo from "./RenderVideo.component.vue";
@@ -27,6 +29,7 @@ export default {
         item: Object
     },
     components: {
+        ItemInformation,
         RenderImage,
         RenderAudio,
         RenderVideo
