@@ -60,6 +60,7 @@ export default {
             );
             this.$store.commit("setFilters", filters);
             this.handleResize();
+            this.loadMore();
         })();
     },
     beforeDestroy: function() {
