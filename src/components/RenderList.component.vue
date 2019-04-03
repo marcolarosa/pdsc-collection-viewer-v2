@@ -33,7 +33,9 @@ export default {
         return {
             renderList: [],
             itemsToPush: 4,
-            showItems: true
+            showItems: true,
+            width: window.innerWidth,
+            heigth: window.innerHeight
         };
     },
     computed: {
@@ -50,6 +52,7 @@ export default {
     mounted() {
         window.addEventListener("resize", this.handleResize);
         (async () => {
+            this.setItemsToLoad();
             let { items, filters } = await loadData();
             this.$store.commit(
                 "setItems",
@@ -63,12 +66,17 @@ export default {
         window.removeEventListener("resize", () => {});
     },
     methods: {
-        handleResize() {
-            this.showItems = false;
-            this.renderList = [];
+        setItemsToLoad() {
             if (window.innerWidth > 800 || window.innerHeight > 800) {
                 this.itemsToPush = 10;
             }
+        },
+        handleResize() {
+            if (window.innerWidth === this.width) return;
+            this.width = window.innerWidth;
+            this.showItems = false;
+            this.renderList = [];
+            this.setItemsToLoad();
             this.loadMore();
             setTimeout(() => {
                 this.showItems = true;
