@@ -1,6 +1,6 @@
 <template>
     <div>
-        <navbar/>
+        <navbar ref="top"/>
         <div class="style-content">
             <div class="row mt-2 mb-4" v-if="images.length">
                 <div class="col">
@@ -27,6 +27,7 @@
 <script>
 import RenderImage from "./RenderImage.component.vue";
 import Navbar from "./Navbar.component.vue";
+import VueScrollTo from "vue-scrollto";
 
 export default {
     components: {
@@ -49,6 +50,11 @@ export default {
             return item.collectionId === collectionId && item.itemId === itemId;
         })[0].images;
         if (!this.images.length) this.$router.push({ name: "viewList" });
+    },
+    mounted() {
+        setTimeout(() => {
+            VueScrollTo.scrollTo(this.$refs["top"], 100, {});
+        }, 500);
     }
 };
 </script>
