@@ -3,14 +3,14 @@
         <div :class="{ 'style-dropdown px-4': showLinks }">
             <div class="row py-2">
                 <div class="col">
-                    <span class="float-right d-sm-none py-2" v-if="menuItems.contentFilter">
+                    <!-- <span class="float-right d-sm-none py-2" v-if="menuItems.contentFilter">
                         <span @click="showLinks = !showLinks">
                             <i class="fas fa-bars style-hamburger"></i>
                         </span>
-                    </span>
-                    <span class="d-none d-sm-block">
-                        <content-filter v-if="menuItems.contentFilter"/>
-                    </span>
+                    </span>-->
+                    <!-- <span class="d-none d-sm-block"> -->
+                    <content-filter v-if="menuItems.contentFilter"/>
+                    <!-- </span> -->
                     <router-link :to="{ path: '/'}">
                         <el-button type v-if="menuItems.home">
                             <i class="fas fa-home"></i>
