@@ -48,6 +48,7 @@ export default {
         }
     },
     mounted() {
+        window.addEventListener("resize", this.handleResize);
         (async () => {
             let { items, filters } = await loadData();
             this.$store.commit(
@@ -55,11 +56,8 @@ export default {
                 orderBy(items, ["collectionId", "itemId"])
             );
             this.$store.commit("setFilters", filters);
-            this.loadMore();
+            this.handleResize();
         })();
-    },
-    ready: function() {
-        window.addEventListener("resize", this.handleResize);
     },
     beforeDestroy: function() {
         window.removeEventListener("resize", () => {});
@@ -68,6 +66,9 @@ export default {
         handleResize() {
             this.showItems = false;
             this.renderList = [];
+            if (window.innerWidth > 800 || window.innerHeight > 800) {
+                this.itemsToPush = 10;
+            }
             this.loadMore();
             setTimeout(() => {
                 this.showItems = true;
