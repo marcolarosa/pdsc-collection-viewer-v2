@@ -46,3 +46,18 @@ a:active {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.el-dialog__headerbtn {
+    font-size: 40px;
+}
+
+.style-headline {
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: $background-color-dark;
+}
+
+.style-item-id {
+    font-size: 15px;
+    color: $background-color-dark;
+}

@@ -62,20 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.style-headline {
-    font-size: 18px;
-    letter-spacing: 1px;
-}
-
-.style-item-id {
-    font-size: 12px;
-}
-
-.box-card {
-    border: 1px solid #22313f;
-    box-shadow: unset;
-    max-width: calc(100vw - 30px);
-}
 </style>
 
 
