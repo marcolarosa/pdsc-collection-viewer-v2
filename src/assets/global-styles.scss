@@ -23,3 +23,26 @@ a:active {
     color: #22313f;
     opacity: 0.8;
 }
+
+.style-tile {
+    min-width: calc(100vw - 30px);
+    max-width: calc(100vw - 30px);
+}
+@media only screen and (min-width: 600px) {
+    .style-tile {
+        max-width: calc((100vw / 2) - 45px);
+        min-width: calc((100vw / 2) - 45px);
+    }
+}
+@media only screen and (min-width: 900px) {
+    .style-tile {
+        max-width: calc((100vw / 3) - 40px);
+        min-width: calc((100vw / 3) - 40px);
+    }
+}
+
+.style-tile-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

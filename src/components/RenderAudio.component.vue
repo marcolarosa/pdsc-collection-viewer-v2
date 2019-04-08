@@ -12,7 +12,7 @@
         </div>
         <div class="row mx-2">
             <div class="col text-center">
-                <audio controls class="style-audio">
+                <audio class>
                     <source :src="item" v-for="(item, idx) of audio.item" :key="idx">Your browser does not support the
                     <code>audio</code> element.
                 </audio>
@@ -35,34 +35,6 @@ export default {
 <style lang="scss" scoped>
 .style-audio-icon {
     font-size: 6em;
-}
-.style-audio {
-    min-width: 70vw;
-    max-width: 70vw;
-}
-@media only screen and (min-width: 600px) {
-    .style-audio {
-        min-width: 300px;
-        max-width: 300px;
-    }
-}
-@media only screen and (min-width: 1200px) {
-    .style-audio {
-        min-width: 350px;
-        max-width: 350px;
-    }
-}
-@media only screen and (min-width: 1500px) {
-    .style-audio {
-        min-width: 400px;
-        max-width: 400px;
-    }
-}
-@media only screen and (min-width: 1500px) {
-    .style-audio {
-        min-width: 500px;
-        max-width: 500px;
-    }
 }
 </style>
 

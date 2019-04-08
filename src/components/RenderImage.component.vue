@@ -45,37 +45,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.style-image {
-    max-width: 70vw;
-    min-width: 70vw;
-}
-@media only screen and (min-width: 600px) {
-    .style-image {
-        max-width: 300px;
-        min-width: 300px;
-    }
-}
-@media only screen and (min-width: 1200px) {
-    .style-image {
-        max-width: 350px;
-        min-width: 350px;
-    }
-}
-@media only screen and (min-width: 1500px) {
-    .style-image {
-        max-width: 400px;
-        min-width: 400px;
-    }
-}
-@media only screen and (min-width: 1500px) {
-    .style-image {
-        max-width: 500px;
-        min-width: 500px;
-    }
-}
-
 .style-image-placeholder {
     font-size: 10em;
+}
+
+.style-image {
+    max-width: 100%;
 }
 </style>
 
