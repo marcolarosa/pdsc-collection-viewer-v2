@@ -23,7 +23,11 @@
                 <div class="row my-2">
                     <div class="col style-item-id">
                         {{video.collectionId}} /
-                        {{video.itemId}}
+                        {{video.itemId}} /
+                        <item-information
+                            :collectionId="video.collectionId"
+                            :itemId="video.itemId"
+                        />
                     </div>
                 </div>
                 <div class="row">
@@ -43,9 +47,14 @@
 </template>
 
 <script>
+import ItemInformation from "./ItemInformation.component.vue";
+
 export default {
     props: {
         video: Object
+    },
+    components: {
+        ItemInformation
     },
     data() {
         return {

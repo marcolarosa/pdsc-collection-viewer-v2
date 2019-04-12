@@ -20,7 +20,11 @@
                 <div class="row my-2">
                     <div class="col style-item-id">
                         {{audio.collectionId}} /
-                        {{audio.itemId}}
+                        {{audio.itemId}} /
+                        <item-information
+                            :collectionId="audio.collectionId"
+                            :itemId="audio.itemId"
+                        />
                     </div>
                 </div>
                 <div class="row">
@@ -47,9 +51,14 @@
 </template>
 
 <script>
+import ItemInformation from "./ItemInformation.component.vue";
+
 export default {
     props: {
         audio: Object
+    },
+    components: {
+        ItemInformation
     },
     data() {
         return {

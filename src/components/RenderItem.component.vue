@@ -7,7 +7,7 @@
             <div class="col style-item-id">
                 <a href v-on:click.prevent="filterByCollection">{{item.collectionId}}</a> /
                 <a href v-on:click.prevent="filterByItem">{{item.itemId}}</a> /
-                <item-information :item="item"/>
+                <item-information :collectionId="item.collectionId" :itemId="item.itemId"/>
             </div>
         </div>
         <render-image :image="item" v-if="item.type === 'image'"/>
@@ -37,7 +37,6 @@ export default {
             itemData: {}
         };
     },
-    mounted() {},
     methods: {
         filterByTitle() {
             this.$store.commit("setSelectedFilter", {
