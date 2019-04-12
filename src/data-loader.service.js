@@ -185,18 +185,3 @@ export async function loadData() {
         return reduce(classifications);
     }
 }
-
-export function flattenItemList(items) {
-    return flattenDeep(
-        items.map(item => {
-            let components = [];
-            if (item.images.length) {
-                components.push({
-                    ...item.images[0],
-                    images: item.images
-                });
-            }
-            return [...components, ...item.audio, ...item.video];
-        })
-    );
-}
