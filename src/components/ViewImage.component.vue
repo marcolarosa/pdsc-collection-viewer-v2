@@ -1,15 +1,16 @@
 <template>
     <div>
-        <div class="style-image-container" @click="toggleControls">
+        <div class="style-image-container">
             <img :src="image.item.path" class="style-image" v-if="image.item">
         </div>
 
         <view-image-controls
-            v-if="dialogVisible"
+            v-show="dialogVisible"
             :image="image"
             v-on:toggle-controls="toggleControls"
             v-on:previous-image="goToPreviousImage"
             v-on:image-list="goToImageList"
+            v-on:homepage="goToHomePage"
             v-on:next-image="goToNextImage"
         />
     </div>
@@ -18,6 +19,8 @@
 <script>
 import { findIndex } from "lodash";
 import ViewImageControls from "./ViewImageControls.component.vue";
+import { FullScreenViewer } from "iv-viewer";
+import Hammer from "hammerjs";
 
 export default {
     components: {
@@ -25,7 +28,7 @@ export default {
     },
     data() {
         return {
-            viewer: undefined,
+            viewer: new FullScreenViewer(),
             image: {},
             images: [],
             dialogVisible: false
@@ -33,14 +36,14 @@ export default {
     },
     mounted() {
         this.loadImage();
-        this.toggleZoom();
     },
     beforeDestroy() {
-        // this is required for the browser back button to work.
-        //  For some reason the browser gets stuck and won't navigate back
-        //  if we don't do this.
-        const container = document.getElementById("iv-container");
-        container.style.display = "none";
+        try {
+            this.viewer.hide();
+            this.viewer.destroy();
+        } catch (error) {
+            // do nothing
+        }
     },
     watch: {
         $route(to, from) {
@@ -64,16 +67,19 @@ export default {
                 return;
             }
             this.image = this.images.filter(i => i.name.match(image))[0];
-            if (!this.dialogVisible) this.toggleZoom();
+            this.toggleZoom();
         },
         toggleControls() {
             this.dialogVisible = !this.dialogVisible;
-            if (!this.dialogVisible) this.toggleZoom();
         },
         toggleZoom() {
-            this.viewer = ImageViewer();
             this.viewer.show(this.image.item.path);
-            if (!this.dialogVisible) this.dialogVisible = !this.dialogVisible;
+            const element = document.getElementsByClassName("iv-fullscreen");
+
+            var hammertime = new Hammer(element[0], {});
+            hammertime.on("tap", () => {
+                this.dialogVisible = !this.dialogVisible;
+            });
         },
         goToPreviousImage() {
             let itemIndex = findIndex(this.images, { name: this.image.name });
@@ -103,6 +109,9 @@ export default {
             this.$router.push({
                 path: `/images/${this.image.collectionId}/${this.image.itemId}`
             });
+        },
+        goToHomePage() {
+            this.$router.push({ name: "viewList" });
         }
     }
 };
@@ -122,5 +131,12 @@ export default {
     width: 100%;
 }
 </style>
+
+<style lang="scss">
+.iv-fullscreen-close {
+    display: none;
+}
+</style>
+
 
 

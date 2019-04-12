@@ -1,10 +1,9 @@
 <template>
     <div>
-        <div class="controls-underlay"></div>
-        <div class="controls-overlay">
+        <div class="controls-overlay fixed-bottom py-2">
             <div class="row">
                 <div class="col">
-                    <span @click="toggleControls" class="p-2 px-4 float-right style-close">
+                    <span @click="closeControls" class="p-2 px-4 float-right style-close">
                         <i class="fal fa-times"></i>
                     </span>
                 </div>
@@ -16,26 +15,30 @@
                 </div>
             </div>
 
-            <div class="center-controls">
-                <div class="row text-center style-controls mx-auto">
-                    <div class="col-4">
-                        <span @click="back" class="style-control">
-                            <i class="fal fa-chevron-circle-left"></i>
-                            <span class="style-control-text">previous image</span>
-                        </span>
-                    </div>
-                    <div class="col-4">
-                        <span @click="up" class="style-control">
-                            <i class="fal fa-level-up"></i>
-                            <span class="style-control-text">up to image list</span>
-                        </span>
-                    </div>
-                    <div class="col-4">
-                        <span @click="forward" class="style-control">
-                            <i class="fal fa-chevron-circle-right"></i>
-                            <span class="style-control-text">next image</span>
-                        </span>
-                    </div>
+            <div class="row text-center style-controls py-4">
+                <div class="col-3">
+                    <span @click="back" class="style-control">
+                        <i class="fas fa-chevron-left"></i>
+                        <!-- <span class="style-control-text">previous image</span> -->
+                    </span>
+                </div>
+                <div class="col-3">
+                    <span @click="up" class="style-control">
+                        <i class="fas fa-long-arrow-alt-up"></i>
+                        <!-- <span class="style-control-text">up to image list</span> -->
+                    </span>
+                </div>
+                <div class="col-3">
+                    <span @click="home" class="style-control">
+                        <i class="fas fa-home"></i>
+                        <!-- <span class="style-control-text">up to image list</span> -->
+                    </span>
+                </div>
+                <div class="col-3">
+                    <span @click="forward" class="style-control">
+                        <i class="fas fa-chevron-right"></i>
+                        <!-- <span class="style-control-text">next image</span> -->
+                    </span>
                 </div>
             </div>
         </div>
@@ -51,7 +54,7 @@ export default {
         return {};
     },
     methods: {
-        toggleControls() {
+        closeControls() {
             this.$emit("toggle-controls");
         },
         back() {
@@ -59,6 +62,9 @@ export default {
         },
         up() {
             this.$emit("image-list");
+        },
+        home() {
+            this.$emit("homepage");
         },
         forward() {
             this.$emit("next-image");
@@ -68,35 +74,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.controls-underlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0.7;
-    background-color: #000;
-}
+@import "assets/global-styles.scss";
 
 .controls-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // margin-bottom: 20px;
     width: 100vw;
-    height: 100vh;
-    color: #fff;
+    z-index: 10000;
+    background-color: #ececec;
+    color: $background-color-dark;
 }
 
 .style-control {
     cursor: pointer;
-}
-
-.center-controls > * {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
-    width: 100vw;
 }
 
 .style-title {
@@ -119,49 +111,50 @@ export default {
 }
 
 .style-close {
-    font-size: 2.8em;
+    font-size: 2em;
 }
 
-@media only screen and (min-width: 600px) and (min-height: 500px) {
-    .style-title {
-        display: block;
-        font-size: 2em;
-    }
+// @media only screen and (min-width: 600px) and (min-height: 500px) {
+//     .style-title {
+//         display: block;
+//         font-size: 2em;
+//     }
 
-    .style-image-name {
-        display: block;
-        font-size: 2em;
-    }
+//     .style-image-name {
+//         display: block;
+//         font-size: 1.5em;
+//     }
 
-    .style-controls {
-        font-size: 2em;
-    }
+//     .style-controls {
+//         font-size: 2em;
+//     }
 
-    .style-control-text {
-        display: block;
-        font-size: 20px;
-    }
-}
-@media only screen and (min-width: 900px) {
-    .style-title {
-        display: block;
-        font-size: 3em;
-    }
+//     .style-control-text {
+//         display: block;
+//         font-size: 20px;
+//     }
+// }
+// @media only screen and (min-width: 900px) {
+//     .style-title {
+//         display: block;
+//         font-size: 2em;
+//     }
 
-    .style-image-name {
-        display: block;
-        font-size: 1.5em;
-    }
+//     .style-image-name {
+//         display: block;
+//         font-size: 1.5em;
+//     }
 
-    .style-controls {
-        font-size: 4em;
-    }
+//     .style-controls {
+//         font-size: 2em;
+//     }
 
-    .style-control-text {
-        display: block;
-        font-size: 20px;
-    }
-}
+//     .style-control-text {
+//         display: block;
+//         font-size: 20px;
+//     }
+// }
 </style>
+
 
 
