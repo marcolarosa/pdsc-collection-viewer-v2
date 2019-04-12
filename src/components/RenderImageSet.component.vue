@@ -17,7 +17,7 @@
             </div>
             <div v-masonry transition-duration="0s" item-selector=".item">
                 <div v-masonry-tile class="item" v-for="(item, idx) in images" :key="idx">
-                    <render-image :image="item" v-if="item.type === 'image'"/>
+                    <render-image :image="item" v-if="item.type === 'image'" class="style-tile"/>
                 </div>
             </div>
         </div>
