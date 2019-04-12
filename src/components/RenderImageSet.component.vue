@@ -9,7 +9,11 @@
                         <div class="row">
                             <div class="col style-item-id">
                                 {{images[0].collectionId}} /
-                                {{images[0].itemId}}
+                                {{images[0].itemId}} /
+                                <item-information
+                                    :collectionId="images[0].collectionId"
+                                    :itemId="images[0].itemId"
+                                />
                             </div>
                         </div>
                     </div>
@@ -25,6 +29,7 @@
 </template>
 
 <script>
+import ItemInformation from "./ItemInformation.component.vue";
 import RenderImage from "./RenderImage.component.vue";
 import Navbar from "./Navbar.component.vue";
 import VueScrollTo from "vue-scrollto";
@@ -32,7 +37,8 @@ import VueScrollTo from "vue-scrollto";
 export default {
     components: {
         RenderImage,
-        Navbar
+        Navbar,
+        ItemInformation
     },
     props: {},
     data() {
