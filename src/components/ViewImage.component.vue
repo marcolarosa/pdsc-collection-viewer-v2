@@ -28,7 +28,7 @@ export default {
     },
     data() {
         return {
-            viewer: new FullScreenViewer(),
+            viewer: this.setupViewer(),
             image: {},
             images: [],
             dialogVisible: false
@@ -38,11 +38,9 @@ export default {
         this.loadImage();
     },
     beforeDestroy() {
-        try {
+        if (this.viewer) {
             this.viewer.hide();
             this.viewer.destroy();
-        } catch (error) {
-            // do nothing
         }
     },
     watch: {
@@ -51,6 +49,13 @@ export default {
         }
     },
     methods: {
+        setupViewer() {
+            const element = document.getElementsByClassName("iv-fullscreen")[0];
+            if (element) {
+                element.parentNode.removeChild(element);
+            }
+            return new FullScreenViewer();
+        },
         loadImage() {
             let { collectionId, itemId, image } = this.$route.params;
             if (!this.$store.state.items.length) {
@@ -74,12 +79,16 @@ export default {
         },
         toggleZoom() {
             this.viewer.show(this.image.item.path);
-            const element = document.getElementsByClassName("iv-fullscreen");
+            setTimeout(() => {
+                const element = document.getElementsByClassName(
+                    "iv-fullscreen"
+                );
 
-            var hammertime = new Hammer(element[0], {});
-            hammertime.on("tap", () => {
-                this.dialogVisible = !this.dialogVisible;
-            });
+                var hammertime = new Hammer(element[0], {});
+                hammertime.on("tap", () => {
+                    this.dialogVisible = !this.dialogVisible;
+                });
+            }, 100);
         },
         goToPreviousImage() {
             let itemIndex = findIndex(this.images, { name: this.image.name });
