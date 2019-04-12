@@ -20,7 +20,7 @@
 
 <script>
 import { flattenDeep, includes, orderBy, debounce } from "lodash";
-import { loadData, flattenItemList } from "../data-loader.service";
+import { loadData } from "../data-loader.service";
 import RenderItem from "./RenderItem.component.vue";
 import Navbar from "./Navbar.component.vue";
 
@@ -79,7 +79,7 @@ export default {
             setTimeout(this.$redrawVueMasonry, 200);
         },
         loadMore() {
-            let items = flattenItemList(this.$store.state.items);
+            let items = this.$store.getters.itemsFlattened;
             if (this.selectedFilter) {
                 items = items.filter(item => {
                     let type = this.selectedFilter.type;
