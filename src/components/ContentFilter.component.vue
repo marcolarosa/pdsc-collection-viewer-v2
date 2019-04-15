@@ -25,9 +25,6 @@
             <el-button @click="dialogVisible = !dialogVisible">
                 <i class="fas fa-search"></i>
             </el-button>
-            <el-button @click="resetFilter">
-                <i class="fas fa-redo" data-fa-transform="flip-h"></i>
-            </el-button>
         </span>
         <el-dialog
             title="Filter by..."
@@ -35,6 +32,13 @@
             :fullscreen="true"
             :modal="false"
         >
+            <div class="my-4" v-if="selectedFilter">
+                Current filter: {{selectedFilter.label}}
+                <el-button @click="resetFilter" class="btn-block">
+                    <i class="fas fa-redo" data-fa-transform="flip-h"></i>
+                    remove filter
+                </el-button>
+            </div>
             <div
                 v-for="group in filters"
                 :key="group.label"

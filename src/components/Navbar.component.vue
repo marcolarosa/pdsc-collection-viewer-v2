@@ -47,19 +47,19 @@ export default {
     },
     mounted() {
         switch (this.$route.name) {
-            case "images":
-                this.menuItems = {
-                    contentFilter: false,
-                    home: true
-                };
-                break;
-
             case "viewList":
                 this.menuItems = {
                     contentFilter: true,
                     home: false
                 };
                 break;
+            default: {
+                this.menuItems = {
+                    contentFilter: false,
+                    home: true
+                };
+                break;
+            }
         }
     }
 };
