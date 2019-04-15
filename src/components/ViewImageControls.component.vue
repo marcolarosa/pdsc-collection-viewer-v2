@@ -112,10 +112,7 @@ export default {
 @import "assets/global-styles.scss";
 
 .controls-overlay {
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-    // margin-bottom: 20px;
+    padding: 0 15px;
     width: 100vw;
     z-index: 10000;
     background-color: #ececec;
@@ -148,47 +145,6 @@ export default {
 .style-close {
     font-size: 2em;
 }
-
-// @media only screen and (min-width: 600px) and (min-height: 500px) {
-//     .style-title {
-//         display: block;
-//         font-size: 2em;
-//     }
-
-//     .style-image-name {
-//         display: block;
-//         font-size: 1.5em;
-//     }
-
-//     .style-controls {
-//         font-size: 2em;
-//     }
-
-//     .style-control-text {
-//         display: block;
-//         font-size: 20px;
-//     }
-// }
-// @media only screen and (min-width: 900px) {
-//     .style-title {
-//         display: block;
-//         font-size: 2em;
-//     }
-
-//     .style-image-name {
-//         display: block;
-//         font-size: 1.5em;
-//     }
-
-//     .style-controls {
-//         font-size: 2em;
-//     }
-
-//     .style-control-text {
-//         display: block;
-//         font-size: 20px;
-//     }
-// }
 </style>
 
 
