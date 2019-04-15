@@ -2,6 +2,13 @@
 
 import { flattenDeep, reduce, uniq, capitalize, orderBy } from "lodash";
 
+const speakerRolesToDisplay = [
+    "participant",
+    "performer",
+    "signer",
+    "singer",
+    "speaker"
+];
 export async function loadData() {
     try {
         let response = await fetch("/repository/index.json");
@@ -79,7 +86,8 @@ export async function loadData() {
         data.forEach(d => {
             if (d.speakers) {
                 d.speakers.forEach(s => {
-                    filters.speakers[s.name] = 1;
+                    if (speakerRolesToDisplay.includes(s.role))
+                        filters.speakers[s.name] = 1;
                 });
             }
             if (d.classifications) {
