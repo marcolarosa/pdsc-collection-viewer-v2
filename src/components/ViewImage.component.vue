@@ -5,13 +5,15 @@
         </div>
 
         <view-image-controls
-            v-show="dialogVisible"
+            v-if="dialogVisible"
             :image="image"
             v-on:toggle-controls="toggleControls"
             v-on:previous-image="goToPreviousImage"
             v-on:image-list="goToImageList"
             v-on:homepage="goToHomePage"
             v-on:next-image="goToNextImage"
+            v-on:jump-to-start="goToFirstImage"
+            v-on:jump-to-end="goToLastImage"
         />
     </div>
 </template>
@@ -113,6 +115,20 @@ export default {
                 });
             }
             this.loadImage();
+        },
+        goToFirstImage() {
+            this.$router.push({
+                path: `/image/${this.image.collectionId}/${this.image.itemId}/${
+                    this.images[0].name.split(".")[0]
+                }`
+            });
+        },
+        goToLastImage() {
+            this.$router.push({
+                path: `/image/${this.image.collectionId}/${this.image.itemId}/${
+                    this.images[this.images.length - 1].name.split(".")[0]
+                }`
+            });
         },
         goToImageList() {
             this.$router.push({

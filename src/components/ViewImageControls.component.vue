@@ -16,29 +16,35 @@
             </div>
 
             <div class="row text-center style-controls py-4">
-                <div class="col-3">
-                    <span @click="back" class="style-control">
-                        <i class="fas fa-chevron-left"></i>
-                        <!-- <span class="style-control-text">previous image</span> -->
-                    </span>
+                <div class="col-2">
+                    <el-button @click="start" :disabled="disablePrevious" circle>
+                        <i class="fas fa-chevron-double-left fa-fw"></i>
+                    </el-button>
                 </div>
-                <div class="col-3">
-                    <span @click="up" class="style-control">
-                        <i class="fas fa-long-arrow-alt-up"></i>
-                        <!-- <span class="style-control-text">up to image list</span> -->
-                    </span>
+                <div class="col-2">
+                    <el-button @click="back" :disabled="disablePrevious" circle>
+                        <i class="fas fa-chevron-left fa-fw"></i>
+                    </el-button>
                 </div>
-                <div class="col-3">
-                    <span @click="home" class="style-control">
-                        <i class="fas fa-home"></i>
-                        <!-- <span class="style-control-text">up to image list</span> -->
-                    </span>
+                <div class="col-2">
+                    <el-button @click="up" circle>
+                        <i class="fas fa-long-arrow-alt-up fa-fw"></i>
+                    </el-button>
                 </div>
-                <div class="col-3">
-                    <span @click="forward" class="style-control">
-                        <i class="fas fa-chevron-right"></i>
-                        <!-- <span class="style-control-text">next image</span> -->
-                    </span>
+                <div class="col-2">
+                    <el-button @click="home" circle>
+                        <i class="fas fa-home fa-fw"></i>
+                    </el-button>
+                </div>
+                <div class="col-2">
+                    <el-button @click="forward" :disabled="disableNext" circle>
+                        <i class="fas fa-chevron-right fa-fw"></i>
+                    </el-button>
+                </div>
+                <div class="col-2">
+                    <el-button @click="end" :disabled="disableNext" circle>
+                        <i class="fas fa-chevron-double-right fa-fw"></i>
+                    </el-button>
                 </div>
             </div>
         </div>
@@ -46,16 +52,42 @@
 </template>
 
 <script>
+import { findIndex } from "lodash";
+
 export default {
     props: {
         image: Object
     },
     data() {
-        return {};
+        return {
+            disablePrevious: true,
+            disableNext: true
+        };
+    },
+    watch: {
+        "image.name": function() {
+            this.toggleControls();
+        }
+    },
+    mounted() {
+        this.toggleControls();
     },
     methods: {
+        toggleControls() {
+            let item = this.$store.getters.item({
+                collectionId: this.image.collectionId,
+                itemId: this.image.itemId
+            });
+            let imageIndex = findIndex(item.images, { name: this.image.name });
+            this.disablePrevious = imageIndex === 0 ? true : false;
+            this.disableNext =
+                imageIndex < item.images.length - 1 ? false : true;
+        },
         closeControls() {
             this.$emit("toggle-controls");
+        },
+        start() {
+            this.$emit("jump-to-start");
         },
         back() {
             this.$emit("previous-image");
@@ -68,6 +100,9 @@ export default {
         },
         forward() {
             this.$emit("next-image");
+        },
+        end() {
+            this.$emit("jump-to-end");
         }
     }
 };
