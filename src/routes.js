@@ -12,7 +12,7 @@ import RenderImageSetComponent from "components/RenderImageSet.component.vue";
 
 export const router = new VueRouter({
     mode: "history",
-    base: process.env.NODE_ENV === "development" ? "/" : "/mobile-viewer",
+    base: process.env.NODE_ENV === "testing" ? "/mobile-viewer/" : "/",
     routes: [
         { path: "*", name: "404", component: BadRequestComponent },
         {

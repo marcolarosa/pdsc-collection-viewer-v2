@@ -41,6 +41,9 @@ module.exports = {
         watchContentBase: true
     },
     plugins: [
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": JSON.stringify("development")
+        }),
         new CleanWebpackPlugin(["dist/*.js", "dist/*.css"], {
             watch: true,
             root: __dirname
