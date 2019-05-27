@@ -17,7 +17,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[hash].bundle.js",
-        publicPath: "/mobile-viewer"
+        publicPath: "/mobile-viewer/"
     },
     optimization: {
         splitChunks: {
