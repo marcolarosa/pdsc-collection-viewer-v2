@@ -11,13 +11,38 @@ const speakerRolesToDisplay = [
 ];
 export async function loadData() {
     try {
-        let response = await fetch("/repository/index.json");
+        let response = await fetch(mapRepositoryRoot("/repository/index.json"));
         if (response.status !== 200) {
             throw new Error(response);
         }
         let items = await response.json();
         items = postprocess(items);
         let filters = extractFilters(items);
+
+        items = items.map(item => {
+            item.images = item.images.map(image => {
+                image.item.path = mapRepositoryRoot(image.item.path);
+                image.item.thumbnail = mapRepositoryRoot(image.item.thumbnail);
+                return image;
+            });
+            item.media = item.media.map(media => {
+                media.files = media.files.map(file => mapRepositoryRoot(file));
+                return media;
+            });
+            item.audio = item.audio.map(audio => {
+                audio.item = audio.item.map(file => mapRepositoryRoot(file));
+                return audio;
+            });
+            item.video = item.video.map(video => {
+                video.item = video.item.map(file => mapRepositoryRoot(file));
+                return video;
+            });
+            item.documents = item.documents.map(document => {
+                document.path = mapRepositoryRoot(document.path);
+                return document;
+            });
+            return item;
+        });
         return { items, filters };
     } catch (error) {
         console.log(error);
@@ -191,5 +216,17 @@ export async function loadData() {
 
     function extractClassifications(classifications) {
         return reduce(classifications);
+    }
+}
+
+export function mapRepositoryRoot(path) {
+    try {
+        const root =
+            process.env.NODE_ENV === "testing"
+                ? "/mobile-viewer/repository"
+                : "/repository";
+        return path.replace("/repository", root);
+    } catch (error) {
+        return path;
     }
 }

@@ -6,17 +6,19 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     target: "web",
-    mode: "development",
-    devtool: "eval-source-map",
+    mode: "production",
+    devtool: "none",
     entry: ["./src/vendor.js", "./src/index.js"],
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name].[hash].bundle.js"
+        filename: "[name].[hash].bundle.js",
+        publicPath: "/mobile-viewer/"
     },
-
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -25,24 +27,16 @@ module.exports = {
                     chunks: "all"
                 }
             }
-        }
-    },
-    watch: true,
-    watchOptions: {
-        poll: 1000,
-        ignored: ["git", "node_modules"]
-    },
-    devServer: {
-        contentBase: path.join(__dirname, "dist"),
-        compress: true,
-        host: "0.0.0.0",
-        port: 9001,
-        historyApiFallback: true,
-        watchContentBase: true
+        },
+        minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})]
     },
     plugins: [
         new webpack.DefinePlugin({
-            "process.env.NODE_ENV": JSON.stringify("development")
+            "process.env.NODE_ENV": JSON.stringify("testing")
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].css"
         }),
         new CleanWebpackPlugin(["dist/*.js", "dist/*.css"], {
             watch: true,
@@ -52,10 +46,13 @@ module.exports = {
             filename: "[name].[contenthash].css"
         }),
         new HtmlWebpackPlugin({
-            title: "PARADISEC Collection Viewer",
+            title: "Inteja",
             template: "./src/index.html"
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpack.ProvidePlugin({
+            introJs: ["intro.js", "introJs"]
+        })
     ],
     module: {
         rules: [
@@ -71,7 +68,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ["vue-style-loader", "css-loader"]
+                use: [MiniCssExtractPlugin.loader, "css-loader"]
             },
             {
                 test: /\.scss$/,

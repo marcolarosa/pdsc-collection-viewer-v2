@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "develop": "npm install --no-progress && node_modules/.bin/webpack-dev-server --config webpack.develop.js --hot --inline",
-        "build": "npm install --no-progress && node_modules/.bin/webpack --config webpack.production.js",
+        "build:testing": "npm install --no-progress && node_modules/.bin/webpack --env.NODE_ENV=testing --config webpack.testing.js",
+        "build:production": "npm install --no-progress && node_modules/.bin/webpack --config webpack.production.js",
         "unitTests": "npm install && node_modules/mocha/bin/mocha -w -r jsdom-global/register 'src/**/*.spec.js'"
     },
     "repository": {
