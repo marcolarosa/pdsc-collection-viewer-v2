@@ -1,10 +1,10 @@
 <template>
     <div class="remove-padding">
-        <navbar/>
+        <navbar />
         <div class="style-content" v-infinite-scroll="loadMore" infinite-scroll-distance="10">
             <div v-masonry transition-duration="0s" item-selector=".item">
                 <div v-masonry-tile class="item" v-for="(item, idx) in renderList" :key="idx">
-                    <render-item :item="item" class=".item"/>
+                    <render-item :item="item" class=".item" />
                 </div>
             </div>
         </div>
@@ -85,7 +85,6 @@ export default {
                 )
             ]);
             setTimeout(this.$redrawVueMasonry, 500);
-            console.log(this.renderList.length, items.length);
         }
     }
 };
